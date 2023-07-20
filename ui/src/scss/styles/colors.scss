@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+@each $name, $color in $colors {
+  .color-#{$name} {
+    color: var(--color-#{$name});
+  }
+  .fill-#{$name} {
+    fill: var(--color-#{$name});
+  }
+  .bg-#{$name} {
+    background-color: var(--color-#{$name}) !important;
+  }
+}

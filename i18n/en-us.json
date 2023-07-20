@@ -1,0 +1,20 @@
+{
+  "keys": {
+    "testKey1": "Hello world 5"
+  },
+  "images": {
+    "folders": {
+      "folder1": "/folder1"
+    },
+    "renditions": {
+      "testImage1": {
+        "fileName": "test-1.svg",
+        "folder": "folder1",
+        "transform": "original"
+      }
+    }
+  },
+  "paths": {
+    "testPath1": "/test/path"
+  }
+}

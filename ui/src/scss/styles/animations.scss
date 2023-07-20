@@ -1,0 +1,48 @@
+@keyframes horizontal-shake {
+  0% {
+    translate: 0 0;
+  }
+
+  11% {
+    translate: -10% 0;
+  }
+
+  22% {
+    translate: 10% 0;
+  }
+
+  33% {
+    translate: -8% 0;
+  }
+
+  44% {
+    translate: 8% 0;
+  }
+
+  56% {
+    translate: -5% 0;
+  }
+
+  67% {
+    translate: 5% 0;
+  }
+
+  78% {
+    translate: -2.5% 0;
+  }
+
+  89% {
+    translate: 2.5% 0;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
+.horizontal-shake {
+  animation-duration: 500ms;
+  animation-name: horizontal-shake;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}

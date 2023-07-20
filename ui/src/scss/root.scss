@@ -1,0 +1,31 @@
+@import './_globalIncludes';
+@import './icons.scss';
+@import './styles/styles.scss';
+
+:root {
+  @include color-vars();
+  @include color-vars-variants();
+
+  --hover-brightness: 90%;
+  --border-radius: 8px;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  background-color: var(--color-bg-dark);
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+
+  --number-size: 86px;
+  --number-radius: calc(var(--number-size) / 2);
+  --number-padding: 8px;
+}

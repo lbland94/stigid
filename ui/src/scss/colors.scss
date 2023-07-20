@@ -1,0 +1,40 @@
+@use 'sass:map';
+@use 'sass:color';
+
+$colors: (
+  'black': #000000,
+  'white': #ffffff,
+  'green': #bfdf8e,
+  'red': #d85d5d,
+  'yellow': #ffd756,
+  'disabled': #4c4c4c,
+  'bg-dark': #1a1a1a,
+  'chartreuse': #d5ea60,
+  'olive': #7a955d,
+);
+
+@function color($keys...) {
+  $value: $colors;
+
+  @each $key in $keys {
+    $value: map-get($value, $key);
+  }
+
+  @return $value;
+}
+
+@mixin color-vars() {
+  @each $name, $color in $colors {
+    --color-#{$name}: #{$color};
+  }
+}
+
+@mixin color-vars-variants() {
+  // Only want to generate light and dark variants of certain included colors
+  @each $name, $color in $colors {
+    @for $i from 1 through 5 {
+      --color-#{$name}--lighten-#{$i * 10}: #{color.adjust($color, $lightness: $i * 10%)};
+      --color-#{$name}--darken-#{$i * 10}: #{color.adjust($color, $lightness: $i * -10%)};
+    }
+  }
+}
