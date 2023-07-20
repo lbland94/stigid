@@ -78,7 +78,7 @@ export default defineComponent({
   bottom: 0;
   z-index: 0;
   background-color: var(--color-black);
-  opacity: 0.2;
+  opacity: 0.7;
   pointer-events: all;
 }
 .modal {

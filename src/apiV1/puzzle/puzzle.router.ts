@@ -31,14 +31,19 @@ puzzleRouter.post(
   validator.query(GeneratePuzzleQuery),
   PuzzleController.generatePuzzle
 );
-puzzleRouter.put(
-  '/generate',
-  validator.query(GeneratePuzzleQuery),
-  PuzzleController.regeneratePuzzle
-);
-puzzleRouter.put(
-  '',
-  validator.query(UpdatePuzzleQuery),
-  validator.body(UpdatePuzzleBody),
-  PuzzleController.updatePuzzle
-);
+// puzzleRouter.put(
+//   '/generate',
+//   validator.query(GeneratePuzzleQuery),
+//   PuzzleController.regeneratePuzzle
+// );
+// puzzleRouter.post(
+//   '/old',
+//   validator.query(GeneratePuzzleQuery),
+//   PuzzleController.oldPuzzle
+// );
+// puzzleRouter.put(
+//   '',
+//   validator.query(UpdatePuzzleQuery),
+//   validator.body(UpdatePuzzleBody),
+//   PuzzleController.updatePuzzle
+// );

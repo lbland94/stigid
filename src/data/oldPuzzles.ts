@@ -1,3 +1,36 @@
+import type { UnsolvedStigidPuzzle } from '@/apiV1/puzzle/puzzle.types';
+import predefinedPuzzles from './digitsPuzzles.json';
+
+export function getConvertedOldPuzzle(
+  d?: string
+): UnsolvedStigidPuzzle[] | undefined {
+  const oldPuzzle = getOldPuzzle(d);
+  if (oldPuzzle) {
+    return oldPuzzle.targets.map((target, i) => ({
+      target,
+      numbers: oldPuzzle.numbers[i],
+      steps: [],
+    }));
+  }
+}
+
+function getOldPuzzle(d?: string) {
+  try {
+    const puzzleIndex = getPuzzleId(d) % predefinedPuzzles.length;
+    return predefinedPuzzles[puzzleIndex];
+  } catch (e) {
+    return predefinedPuzzles[0];
+  }
+}
+function getPuzzleId(d?: string) {
+  const magicNum = 864e5;
+  const startDate = new Date('4/10/2023'),
+    timeBetween =
+      new Date(d).setHours(0, 0, 0, 0) - startDate.setHours(0, 0, 0, 0);
+  let n = Math.round(timeBetween / magicNum);
+  return n < 0 && (n = 0), n;
+}
+
 export const OLD_PUZZLES = {
   '2023-07-19': [
     {

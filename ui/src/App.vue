@@ -16,6 +16,7 @@ onMounted(() => {
         uiStore.closeOverlay('splash');
       },
     },
+    containerClasses: { 'opacity-1': true },
   });
 });
 </script>

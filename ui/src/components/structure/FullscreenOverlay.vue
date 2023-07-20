@@ -41,6 +41,6 @@ export default defineComponent({
   position: absolute;
   left: 0;
   top: 0;
-  background-color: var(--color-white);
+  background-color: var(--color-bg-dark--lighten-10);
 }
 </style>

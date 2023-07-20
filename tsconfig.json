@@ -4,6 +4,7 @@
     "module": "commonjs",
     "outDir": "dist",
     "sourceMap": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -18,7 +19,8 @@
     "experimentalDecorators": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "jobs/*.ts"
   ],
   "exclude": [
     "node_modules"

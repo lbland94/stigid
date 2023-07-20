@@ -64,13 +64,13 @@ export default defineComponent({
   bottom: 0;
   z-index: 0;
   background-color: var(--color-black);
-  opacity: 0.2;
+  opacity: 0.7;
   pointer-events: all;
 }
 .drawer {
   position: absolute;
   pointer-events: all;
-  background-color: var(--color-white);
+  background-color: var(--color-bg-dark--lighten-10);
 
   &.drawer--right {
     top: 0;

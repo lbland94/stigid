@@ -30,7 +30,9 @@ USER node
 
 COPY --from=builder /home/node/app/package.json /home/node/app/pnpm-lock.yaml .
 
-COPY --from=builder /home/node/app/dist ./dist
+COPY --from=builder --chown=node:node /home/node/app/dist ./dist
+
+RUN mv /home/node/app/dist/jobs ./jobs
 
 RUN pnpm install -P
 

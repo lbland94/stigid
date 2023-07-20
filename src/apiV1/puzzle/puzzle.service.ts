@@ -16,7 +16,7 @@ import dayjs from '@/utilities/dayjs';
 export const puzzleGroup: PuzzleGenerateDefinition[] = [
   {
     target: {
-      min: 20,
+      min: 40,
       max: 100,
     },
     numbers: {
@@ -30,7 +30,9 @@ export const puzzleGroup: PuzzleGenerateDefinition[] = [
         {
           max: 1,
           weight: 0.5,
-          weights: [0.1, 1, 0.1, 2, 0.1, 1, 0.1, 1, 0.5, 1, 0.1, 1, 0.1, 2],
+          weights: [
+            0.02, 1, 0.02, 2, 0.02, 1, 0.02, 1, 0.5, 1, 0.02, 1, 0.02, 2,
+          ],
           options: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         },
       ],
@@ -52,7 +54,9 @@ export const puzzleGroup: PuzzleGenerateDefinition[] = [
         {
           max: 2,
           weight: 1,
-          weights: [0.1, 1, 0.1, 2, 0.1, 1, 0.1, 1, 0.5, 1, 0.1, 1, 0.1, 2],
+          weights: [
+            0.02, 1, 0.02, 2, 0.02, 1, 0.02, 1, 0.5, 1, 0.02, 1, 0.02, 2,
+          ],
           options: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         },
       ],
@@ -74,7 +78,9 @@ export const puzzleGroup: PuzzleGenerateDefinition[] = [
         {
           max: 2,
           weight: 1,
-          weights: [0.1, 1, 0.1, 2, 0.1, 1, 0.1, 1, 0.5, 1, 0.1, 1, 0.1, 2],
+          weights: [
+            0.02, 1, 0.02, 2, 0.02, 1, 0.02, 1, 0.5, 1, 0.02, 1, 0.02, 2,
+          ],
           options: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         },
         {
@@ -102,7 +108,9 @@ export const puzzleGroup: PuzzleGenerateDefinition[] = [
         {
           max: 2,
           weight: 1,
-          weights: [0.1, 1, 0.1, 2, 0.1, 1, 0.1, 1, 0.5, 1, 0.1, 1, 0.1, 2],
+          weights: [
+            0.02, 1, 0.02, 2, 0.02, 1, 0.02, 1, 0.5, 1, 0.02, 1, 0.02, 2,
+          ],
           options: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         },
         {
@@ -130,7 +138,9 @@ export const puzzleGroup: PuzzleGenerateDefinition[] = [
         {
           max: 2,
           weight: 1,
-          weights: [0.1, 1, 0.1, 2, 0.1, 1, 0.1, 1, 0.5, 1, 0.1, 1, 0.1, 2],
+          weights: [
+            0.02, 1, 0.02, 2, 0.02, 1, 0.02, 1, 0.5, 1, 0.02, 1, 0.02, 2,
+          ],
           options: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
         },
         {
