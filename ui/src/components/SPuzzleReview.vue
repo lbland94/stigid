@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import SButton from './atoms/SButton.vue';
 import type { StigidDaily } from '@/api/modules/puzzle/puzzle.interfaces';
 import IconVue from './content/Icon.vue';
-import copy from 'copy-text-to-clipboard';
+import { copy } from '@/utilities/copy';
 import { useUiStore } from '@/stores/ui';
 
 const puzzleStore = usePuzzleStore();
@@ -73,7 +73,9 @@ async function next() {
 const uiStore = useUiStore();
 
 function share() {
-  copy(puzzleStore.shareText);
+  copy(puzzleStore.shareText).catch((e) => {
+    // copy failed
+  });
   uiStore.openOverlay({
     type: 'toast',
     contents: 'Text copied to clipboard',

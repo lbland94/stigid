@@ -109,9 +109,11 @@ export const usePuzzleStore = defineStore('puzzle', {
 
         str += `\n${String(closest).padEnd(3, ' ')} ${`(${p.target})`.padEnd(5, ' ')} ${opEmoji}`;
       }
-      const totalSteps = state.solutions.reduce((total, s) => total + s.steps.length, 0);
-      const fewestSteps = puzzle.puzzles.reduce((total, p) => total + p.solutions.findIndex((v) => v > 0) + 1, 0);
-      str += `\n\nSteps: ${totalSteps} (${fewestSteps})`;
+      if (totalStars === 15) {
+        const totalSteps = state.solutions.reduce((total, s) => total + s.steps.length, 0);
+        const fewestSteps = puzzle.puzzles.reduce((total, p) => total + p.solutions.findIndex((v) => v > 0) + 1, 0);
+        str += `\n\nSteps: ${totalSteps} (${fewestSteps})`;
+      }
       return str;
     },
   },
