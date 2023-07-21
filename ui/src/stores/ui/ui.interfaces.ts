@@ -2,7 +2,7 @@ import type { Component } from 'vue';
 
 export interface OverlayConfig {
   id: string;
-  type: 'drawer' | 'modal' | 'fullscreen';
+  type: 'drawer' | 'modal' | 'fullscreen' | 'toast';
   component?: string | Component;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentAttr?: Record<string, any>;
@@ -38,6 +38,13 @@ export interface FullscreenOverlayConfig extends OverlayConfig {
   type: 'fullscreen';
 }
 
+export interface ToastConfig {
+  id?: string;
+  type: 'toast';
+  timeout?: number;
+  contents: string;
+}
+
 export interface UiState {
-  overlays: OverlayConfig[];
+  overlays: Array<OverlayConfig | ToastConfig>;
 }

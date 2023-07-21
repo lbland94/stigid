@@ -1,6 +1,6 @@
 <template>
   <div class="overlays">
-    <TransitionGroup name="fade">
+    <TransitionGroup>
       <FullscreenOverlay
         v-for="fullscreen in fullscreens"
         :key="fullscreen.id"
@@ -8,7 +8,7 @@
         @close="closeOverlay"
       />
     </TransitionGroup>
-    <TransitionGroup name="fade">
+    <TransitionGroup>
       <ModalOverlay
         v-for="modal in modals"
         :key="modal.id"
@@ -20,6 +20,11 @@
     <TransitionGroup name="drawer-slide" :duration="200">
       <DrawerOverlay v-for="drawer in drawers" :key="drawer.id" :data="drawer" @close="closeOverlay" />
     </TransitionGroup>
+    <div class="toasts-container">
+      <TransitionGroup name="fade-up">
+        <ToastOverlay v-for="toast in toasts" :key="toast.id" :data="toast" @close="closeOverlay" />
+      </TransitionGroup>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -27,7 +32,8 @@ import { computed, defineComponent } from 'vue';
 import FullscreenOverlay from './FullscreenOverlay.vue';
 import ModalOverlay from './Modal.vue';
 import DrawerOverlay from './Drawer.vue';
-import type { DrawerConfig, FullscreenOverlayConfig, ModalConfig } from '@/stores/ui/ui.interfaces';
+import ToastOverlay from './Toast.vue';
+import type { DrawerConfig, FullscreenOverlayConfig, ModalConfig, ToastConfig } from '@/stores/ui/ui.interfaces';
 import { useUiStore } from '@/stores/ui';
 
 export default defineComponent({
@@ -36,6 +42,7 @@ export default defineComponent({
     FullscreenOverlay,
     ModalOverlay,
     DrawerOverlay,
+    ToastOverlay,
   },
   setup() {
     const uiState = useUiStore();
@@ -52,6 +59,10 @@ export default defineComponent({
       return uiState.overlays.filter((o) => o.type === 'drawer') as DrawerConfig[];
     });
 
+    const toasts = computed(() => {
+      return uiState.overlays.filter((o) => o.type === 'toast') as ToastConfig[];
+    });
+
     function closeOverlay(id: string) {
       uiState.closeOverlay(id);
     }
@@ -60,6 +71,7 @@ export default defineComponent({
       fullscreens,
       modals,
       drawers,
+      toasts,
       closeOverlay,
     };
   },
@@ -74,6 +86,17 @@ export default defineComponent({
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+.fade-up-enter-active,
+.fade-up-leave-active {
+  transition: all 0.2s ease;
+}
+.fade-up-enter-from,
+.fade-up-leave-to {
+  opacity: 0;
+}
+.fade-up-leave-to {
+  translate: 0 -100%;
 }
 .overlays {
   position: fixed;

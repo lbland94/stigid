@@ -24,7 +24,9 @@ const selectedPuzzle = ref(
 );
 
 const solutionSteps = computed(() => {
-  return puzzleStore.solutionSteps[selectedPuzzle.value] || [];
+  return (puzzleStore.solutionSteps[selectedPuzzle.value] || []).filter(
+    (s, i) => solutionExpanded.value || i === puzzleStore.solutionSteps[selectedPuzzle.value].length
+  );
 });
 const solutionExpanded = ref(false);
 
@@ -72,14 +74,7 @@ function nextPuzzle() {
       >
         {{ p.target }}
         <div class="s-pt-t-stars flex row nowrap justify-c">
-          <span
-            class="s-pt-t-star material-symbols-outlined"
-            :class="{ selected: stars[i] >= j }"
-            v-for="j in 3"
-            :key="`star-${j}`"
-          >
-            star
-          </span>
+          <Icon class="s-pt-t-star" :fill="stars[i] >= j" v-for="j in 3" :key="`star-${j}`"> star </Icon>
         </div>
       </button>
     </div>
@@ -110,21 +105,6 @@ function nextPuzzle() {
     display: block;
     font-size: 15px;
     position: relative;
-
-    &.selected {
-      &::before {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 42%;
-        height: 42%;
-        border-radius: 50%;
-        background-color: var(--color-white);
-        left: 50.5%;
-        top: 55%;
-        translate: -50% -50%;
-      }
-    }
   }
 
   .s-pt-sol-arrow {

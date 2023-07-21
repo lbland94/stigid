@@ -5,6 +5,7 @@ import { computed, ref } from 'vue';
 import type { StigidDaily } from '@/api/modules/puzzle/puzzle.interfaces';
 import SButton from './atoms/SButton.vue';
 import { operations, operatorDisplay } from '@/utilities/puzzle';
+import IconVue from './content/Icon.vue';
 
 const circlePositions = [
   { left: '0', top: '0' },
@@ -53,12 +54,15 @@ const numbers = computed(() => {
 
 const awaiting = ref(false);
 
+const opsOrder = ['+', '-', '*', '/'];
 const ops = computed(() => {
-  return Object.values(operations).map((op, i) => ({
-    ...op,
-    display: operatorDisplay[op.symbol as keyof typeof operatorDisplay],
-    selected: selectedOperator.value === op.symbol,
-  }));
+  return Object.values(operations)
+    .map((op) => ({
+      ...op,
+      display: operatorDisplay[op.symbol as keyof typeof operatorDisplay],
+      selected: selectedOperator.value === op.symbol,
+    }))
+    .sort((a, b) => opsOrder.indexOf(a.symbol) - opsOrder.indexOf(b.symbol));
 });
 const selected = ref([false, false, false, false, false, false]);
 const extraClasses = ref(['', '', '', '', '', '']);
@@ -72,6 +76,7 @@ function select(index: number) {
   });
   if (otherSelected === index) {
     selected.value[index] = false;
+    selectedOperator.value = undefined;
     return;
   }
   if (selectedOperator.value && otherSelected !== -1) {
@@ -159,11 +164,11 @@ function submit() {
       </CircleSelect>
     </div>
     <div class="s-p-operators flex row gap-05">
-      <CircleSelect class="s-operator" small light selected @click.prevent="undo">
-        <span class="material-symbols-outlined"> undo </span>
+      <CircleSelect class="s-operator-undo flex col align-c justify-c" small light selected @click.prevent="undo">
+        <IconVue class="s-undo-icon" bold> undo </IconVue>
       </CircleSelect>
       <CircleSelect
-        class="s-operator"
+        class="s-operator flex col align-c justify-c"
         small
         light
         v-for="op of ops"
@@ -171,7 +176,7 @@ function submit() {
         @click.prevent="selectOperator(op.symbol)"
         :selected="op.selected"
       >
-        {{ op.display }}
+        <span class="font-nunito s-operator-text">{{ op.display }}</span>
       </CircleSelect>
     </div>
     <div class="flex col gap-10">
@@ -179,9 +184,7 @@ function submit() {
         {{ stars === 3 && !isLast ? 'Next' : 'Submit' }}
 
         <div class="flex row nowrap justify-c align-c" v-if="stars > 0">
-          <span class="s-pt-t-star material-symbols-outlined color-black" v-for="j in stars" :key="`star-${j}`">
-            star
-          </span>
+          <IconVue class="s-p-star color-black" v-for="j in stars" :key="`star-${j}`"> star </IconVue>
         </div>
       </SButton>
       <SButton outline v-if="stars === 3 && !isLast" @click.prevent="$emit('solved')"> Review </SButton>
@@ -193,6 +196,26 @@ function submit() {
 .s-puzzle {
   .s-p-target {
     font-size: 50px;
+  }
+  // .s-p-star {
+  //   font-size: 25px;
+  // }
+  .s-operator-undo {
+    font-size: 40px;
+    position: relative;
+  }
+  .s-undo-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+  .s-operator {
+    font-size: 55px;
+  }
+  .s-operator-text {
+    margin: 0;
+    translate: 0 -5%;
   }
   .s-p-numbers {
     position: relative;

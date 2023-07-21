@@ -2,6 +2,7 @@
 import { usePuzzleStore } from '@/stores/puzzle';
 import { ranks } from '@/utilities/puzzle';
 import { computed } from 'vue';
+import Icon from './content/Icon.vue';
 
 const puzzleStore = usePuzzleStore();
 
@@ -40,7 +41,7 @@ const rankName = computed(() => {
         :style="{ left: `${rank.percent * 100}%` }"
       >
         <div class="s-rank-star-container" v-if="i > 0 && rank.fulfilled">
-          <span class="s-rank-star material-symbols-outlined">star</span>
+          <Icon class="s-rank-star" fill>star</Icon>
           {{ rank.stars }}
         </div>
       </div>
@@ -78,7 +79,7 @@ const rankName = computed(() => {
     position: absolute;
     left: 50%;
     top: 50%;
-    translate: -50% -45%;
+    translate: -50% -50%;
     color: var(--color-black);
     font-family: $font-sans;
     font-size: 10px;
@@ -88,18 +89,17 @@ const rankName = computed(() => {
     position: absolute;
     left: 50%;
     top: 50%;
-    translate: -47% -57%;
+    translate: -49% -57%;
     color: var(--color-yellow);
     font-size: 32px;
     z-index: -1;
     &::before {
       content: '';
-      background-color: var(--color-yellow);
       position: absolute;
       left: 50%;
       top: 50%;
-      translate: -50% -35%;
-      width: 44%;
+      translate: -50% -50%;
+      width: 40%;
       height: 44%;
       border-radius: 50%;
       box-shadow: -2px 0 10px var(--color-black);

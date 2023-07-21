@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { usePuzzleStore } from '@/stores/puzzle';
-import { computed, nextTick } from 'vue';
+import { computed } from 'vue';
 import SButton from './atoms/SButton.vue';
 import type { StigidDaily } from '@/api/modules/puzzle/puzzle.interfaces';
 import IconVue from './content/Icon.vue';
 import copy from 'copy-text-to-clipboard';
+import { useUiStore } from '@/stores/ui';
 
 const puzzleStore = usePuzzleStore();
 
@@ -69,15 +70,21 @@ async function next() {
   emit('close');
 }
 
+const uiStore = useUiStore();
+
 function share() {
   copy(puzzleStore.shareText);
+  uiStore.openOverlay({
+    type: 'toast',
+    contents: 'Text copied to clipboard',
+  });
 }
 </script>
 
 <template>
   <div class="s-puzzle-review flex col align-c justify-c gap-20">
-    <div class="s-pr-stars">
-      <span class="s-pr-star material-symbols-outlined" v-for="s in stars" :key="`star-${s}`">star</span>
+    <div class="s-pr-stars flex row nowrap">
+      <IconVue class="s-pr-star" fill v-for="s in stars" :key="`star-${s}`">star</IconVue>
     </div>
     <div class="s-pr-steps flex col gap-04 align-c">
       <p class="s-pr-step margin-0 font-sans" v-for="(step, i) of solutionSteps" :key="`step-${i}`">

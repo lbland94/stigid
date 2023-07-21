@@ -22,10 +22,10 @@ defineProps({
   color: var(--color-white);
   background: var(--color-black);
   border-radius: 1000px;
-  padding: 10px 20px;
+  padding: 14px 20px;
   transition: all 0.1s ease-in-out;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   font-family: $font-sans;
   cursor: pointer;
 
