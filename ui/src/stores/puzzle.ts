@@ -107,7 +107,7 @@ export const usePuzzleStore = defineStore('puzzle', {
           .map((s) => operatorEmoji[s.operationSymbol as keyof typeof operatorEmoji])
           .join('');
 
-        str += `\n${String(closest).padEnd(3, ' ')} ${`(${p.target})`.padEnd(5, ' ')} ${opEmoji}`;
+        str += `\n${String(closest).padEnd(3, ' ')} ${`(${p.target})`.padEnd(5, ' ')} ${opEmoji}`;
       }
       if (totalStars === 15) {
         const totalSteps = state.solutions.reduce((total, s) => total + s.steps.length, 0);

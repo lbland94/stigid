@@ -1,14 +1,7 @@
 export async function copy(text: string) {
   return new Promise<void>((resolve, reject) => {
-    if (
-      typeof navigator !== 'undefined' &&
-      typeof navigator.clipboard !== 'undefined' &&
-      (navigator.permissions as any) !== 'undefined'
-    ) {
-      const type = 'text/plain';
-      const blob = new Blob([text], { type });
-      const data = [new ClipboardItem({ [type]: blob })];
-      navigator.clipboard.write(data).then(resolve, reject).catch(reject);
+    if (typeof navigator !== 'undefined' && typeof navigator.clipboard !== 'undefined') {
+      navigator.clipboard.writeText(text).then(resolve, reject).catch(reject);
     } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
       const textarea = document.createElement('textarea');
       textarea.textContent = text;
