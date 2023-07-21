@@ -1,6 +1,6 @@
 {
   "name": "stigid",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -20,6 +20,7 @@
     "docker:down": "TAG=latest docker compose --env-file=.env -f ./docker/docker-compose.yml down",
     "docker:build": "TAG=latest docker compose --env-file=.env -f ./docker/docker-compose.yml build",
     "docker:push": "TAG=latest docker compose --env-file=.env -f ./docker/docker-compose.yml push",
+    "act:test": "act push -e .github/.act/push-tag-event.json",
     "lint": "cd ui && pnpm run lint"
   },
   "author": "",
