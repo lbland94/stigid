@@ -25,7 +25,7 @@ const selectedPuzzle = ref(
 
 const solutionSteps = computed(() => {
   return (puzzleStore.solutionSteps[selectedPuzzle.value] || []).filter(
-    (s, i) => solutionExpanded.value || i === puzzleStore.solutionSteps[selectedPuzzle.value].length
+    (s, i) => solutionExpanded.value || i === puzzleStore.solutionSteps[selectedPuzzle.value].length - 1
   );
 });
 const solutionExpanded = ref(false);
