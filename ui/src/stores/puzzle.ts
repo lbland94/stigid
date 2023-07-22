@@ -6,7 +6,6 @@ import { operations, operatorDisplay, operatorEmoji } from '@/utilities/puzzle';
 
 export const usePuzzleStore = defineStore('puzzle', {
   state: () => ({
-    date: dayjs().format('YYYY-MM-DD'),
     puzzle: {} as StigidDaily | {},
     solutions: [] as UnsolvedStigidPuzzle[],
   }),
@@ -24,9 +23,11 @@ export const usePuzzleStore = defineStore('puzzle', {
     },
     async fetchPuzzle() {
       try {
-        if (!(this.puzzle as StigidDaily)?.date || this.date !== dayjs().format('YYYY-MM-DD')) {
+        if (
+          !(this.puzzle as StigidDaily)?.date ||
+          dayjs((this.puzzle as StigidDaily)?.date).format('YYYY-MM-DD') !== dayjs().format('YYYY-MM-DD')
+        ) {
           this.puzzle = await api.puzzle.getPuzzle();
-          this.date = dayjs().format('YYYY-MM-DD');
           this.solutions = [];
         }
       } catch (e) {
@@ -41,7 +42,6 @@ export const usePuzzleStore = defineStore('puzzle', {
     reset() {
       this.solutions = [];
       this.puzzle = {};
-      this.date = dayjs().format('YYYY-MM-DD');
     },
   },
   getters: {
