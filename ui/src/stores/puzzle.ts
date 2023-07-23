@@ -23,11 +23,12 @@ export const usePuzzleStore = defineStore('puzzle', {
     },
     async fetchPuzzle() {
       try {
+        const date = dayjs().format('YYYY-MM-DD');
         if (
           !(this.puzzle as StigidDaily)?.date ||
-          dayjs((this.puzzle as StigidDaily)?.date).format('YYYY-MM-DD') !== dayjs().format('YYYY-MM-DD')
+          dayjs((this.puzzle as StigidDaily)?.date).format('YYYY-MM-DD') !== date
         ) {
-          this.puzzle = await api.puzzle.getPuzzle();
+          this.puzzle = await api.puzzle.getPuzzle(date);
           this.solutions = [];
         }
       } catch (e) {
