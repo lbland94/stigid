@@ -10,6 +10,10 @@
   --border-radius: 8px;
 }
 
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html,
 body,
 #app {

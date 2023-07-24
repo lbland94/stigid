@@ -2,7 +2,7 @@
 import type { StigidDaily } from '@/api/modules/puzzle/puzzle.interfaces';
 import SPuzzle from './SPuzzle.vue';
 import { usePuzzleStore } from '@/stores/puzzle';
-import { computed, markRaw, nextTick, onMounted, ref } from 'vue';
+import { computed, markRaw, nextTick, onMounted, ref, watch } from 'vue';
 import { useUiStore } from '@/stores/ui';
 import SPuzzleReview from './SPuzzleReview.vue';
 import Icon from './content/Icon.vue';
@@ -13,14 +13,24 @@ const puzzleStore = usePuzzleStore();
 onMounted(() => {
   puzzleStore.fetchPuzzle();
 });
+watch(
+  () => (puzzleStore.puzzle as StigidDaily).date,
+  () => {
+    selectedPuzzle.value = puzzles.value.length
+      ? firstIncompleteIndex.value !== -1
+        ? firstIncompleteIndex.value
+        : stars.value.length - 1
+      : 0;
+  }
+);
 
 const puzzles = computed(() => (puzzleStore.puzzle as StigidDaily).puzzles || []);
 const stars = computed(() => {
   return puzzleStore.stars;
 });
-let firstIncompleteIndex = stars.value.findIndex((s) => s < 3);
+const firstIncompleteIndex = computed(() => stars.value.findIndex((s) => s < 3));
 const selectedPuzzle = ref(
-  puzzles.value.length ? (firstIncompleteIndex !== -1 ? firstIncompleteIndex : stars.value.length - 1) : 0
+  puzzles.value.length ? (firstIncompleteIndex.value !== -1 ? firstIncompleteIndex.value : stars.value.length - 1) : 0
 );
 
 const solutionSteps = computed(() => {
@@ -141,8 +151,7 @@ function nextPuzzle() {
     cursor: pointer;
 
     &.expanded {
-      height: 600px;
-      max-height: calc(100vh - 50px - 40px - 20px - 52px);
+      height: calc(100vh - 260px);
     }
   }
 

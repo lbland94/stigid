@@ -217,6 +217,12 @@ $screens: (
   }
 }
 
+@mixin mouse-only() {
+  @media (pointer: fine) {
+    @content;
+  }
+}
+
 @mixin position($top, $right: $top, $bottom: $top, $left: $right) {
   top: $top;
   right: $right;

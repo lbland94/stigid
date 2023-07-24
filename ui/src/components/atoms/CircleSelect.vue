@@ -25,7 +25,7 @@ defineProps({
 .s-circle-select {
   width: var(--number-size);
   height: var(--number-size);
-  border-radius: calc(var(--number-size) / 2);
+  border-radius: 50%;
   padding: 10px;
   box-sizing: border-box;
   border: 3px dashed var(--color-white);
@@ -36,8 +36,10 @@ defineProps({
   font-family: $font-sans;
   font-weight: bold;
 
-  &:hover {
-    scale: 1.03;
+  @include mouse-only() {
+    &:hover {
+      scale: 1.03;
+    }
   }
 
   &:active {
