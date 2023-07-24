@@ -1,6 +1,7 @@
 import { PuzzleService, puzzleGroup } from '@/apiV1/puzzle/puzzle.service';
 import dbConnect from '@/config/db';
 import { parentPort } from 'worker_threads';
+import dayjs from '@/utilities/dayjs';
 
 let connection: Awaited<ReturnType<typeof dbConnect>>;
 
@@ -21,9 +22,11 @@ if (parentPort) {
 
 (async () => {
   try {
+    const date = dayjs().add(1, 'day').startOf('day');
     connection = await dbConnect();
     const puzzles = PuzzleService.generatePuzzleGroup(puzzleGroup);
-    await PuzzleService.savePuzzle(puzzles);
+    console.log(`generating puzzle for ${date.format('YYYY-MM-DD')}`);
+    await PuzzleService.savePuzzle(puzzles, date);
   } catch (e) {
     console.log(e);
     process.exit(1);
