@@ -55,8 +55,8 @@ export const usePuzzleStore = defineStore('puzzle', {
           hidden: false,
         }));
         for (const s of solution?.steps || []) {
-          const aInd = s.aInd;
-          const bInd = s.bInd;
+          const aInd = s.aInd !== undefined ? s.aInd : startingNums.findIndex((n) => s.a === n.number);
+          const bInd = s.bInd !== undefined ? s.bInd : startingNums.findIndex((n) => s.b === n.number);
 
           startingNums[aInd].hidden = true;
           startingNums[bInd].number = operations[s.operationSymbol].apply(
