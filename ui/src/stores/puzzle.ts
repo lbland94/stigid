@@ -55,8 +55,8 @@ export const usePuzzleStore = defineStore('puzzle', {
           hidden: false,
         }));
         for (const s of solution?.steps || []) {
-          const aInd = startingNums.findIndex((n) => s.a === n.number);
-          const bInd = startingNums.findIndex((n, i) => s.b === n.number && i !== aInd);
+          const aInd = s.aInd;
+          const bInd = s.bInd;
 
           startingNums[aInd].hidden = true;
           startingNums[bInd].number = operations[s.operationSymbol].apply(
@@ -82,11 +82,13 @@ export const usePuzzleStore = defineStore('puzzle', {
     },
     solutionSteps(state): Array<Array<UnsolvedStigidPuzzle['steps'][number] & { result: number; display: string }>> {
       return state.solutions.map((solution) => {
-        return solution.steps.map((s) => ({
-          ...s,
-          result: operations[s.operationSymbol].apply(s.a, s.b),
-          display: operatorDisplay[s.operationSymbol as keyof typeof operatorDisplay],
-        }));
+        return (
+          solution?.steps.map((s) => ({
+            ...s,
+            result: operations[s.operationSymbol].apply(s.a, s.b),
+            display: operatorDisplay[s.operationSymbol as keyof typeof operatorDisplay],
+          })) || []
+        );
       });
     },
     shareText(state): string {

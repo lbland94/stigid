@@ -88,7 +88,13 @@ function select(index: number) {
       extraStyles.value[otherSelected] = { ...circlePositions[index], zIndex: 0 };
       extraStyles.value[index] = { zIndex: 1 };
       setTimeout(() => {
-        puzzleStore.addStep(props.puzzleIndex, { a: num1, b: num2, operationSymbol: op.symbol });
+        puzzleStore.addStep(props.puzzleIndex, {
+          a: num1,
+          aInd: otherSelected,
+          b: num2,
+          bInd: index,
+          operationSymbol: op.symbol,
+        });
         selected.value = selected.value.map(() => false);
         selectedOperator.value = undefined;
         awaiting.value = false;

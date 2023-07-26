@@ -21,6 +21,8 @@ export interface UnsolvedStigidPuzzle {
 }
 
 export interface StigidPuzzleStep {
+  aInd: number;
+  bInd: number;
   a: number;
   b: number;
   operationSymbol: string;
