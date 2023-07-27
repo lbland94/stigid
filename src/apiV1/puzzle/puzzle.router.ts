@@ -26,11 +26,11 @@ puzzleRouter.get(
   validator.query(GetPuzzleQuery),
   PuzzleController.getPuzzle
 );
-puzzleRouter.post(
-  '/generate',
-  validator.query(GeneratePuzzleQuery),
-  PuzzleController.generatePuzzle
-);
+// puzzleRouter.get(
+//   '/generate',
+//   validator.query(GeneratePuzzleQuery),
+//   PuzzleController.generatePuzzle
+// );
 // puzzleRouter.put(
 //   '/generate',
 //   validator.query(GeneratePuzzleQuery),

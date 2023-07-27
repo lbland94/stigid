@@ -1,41 +1,8 @@
-import type { UnsolvedStigidPuzzle } from '@/apiV1/puzzle/puzzle.types';
-import predefinedPuzzles from './digitsPuzzles.json';
-import dayjs from '@/utilities/dayjs';
-import { PuzzleService } from '@/apiV1/puzzle/puzzle.service';
+import { PuzzleService, puzzleGroup } from '@/apiV1/puzzle/puzzle.service';
 import fs from 'fs';
 import path from 'path';
 
-export function getConvertedOldPuzzle(
-  d?: string
-): UnsolvedStigidPuzzle[] | undefined {
-  const oldPuzzle = getOldPuzzle(d);
-  if (oldPuzzle) {
-    return oldPuzzle.targets.map((target, i) => ({
-      target,
-      numbers: oldPuzzle.numbers[i],
-      steps: [],
-    }));
-  }
-}
-
-function getOldPuzzle(d?: string) {
-  try {
-    const puzzleIndex = getPuzzleId(d) % predefinedPuzzles.length;
-    return predefinedPuzzles[puzzleIndex];
-  } catch (e) {
-    return predefinedPuzzles[0];
-  }
-}
-function getPuzzleId(d?: string) {
-  const magicNum = 864e5;
-  const startDate = new Date('4/10/2023'),
-    timeBetween =
-      new Date(d).setHours(0, 0, 0, 0) - startDate.setHours(0, 0, 0, 0);
-  let n = Math.round(timeBetween / magicNum);
-  return n < 0 && (n = 0), n;
-}
-
-function analyzeOldPuzzles() {
+function analyzeNewPuzzles() {
   const solved: any[] = [];
   const puzzleAnalysis = Array.from(Array(5)).map((v, i) => ({
     puzzle: i,
@@ -61,17 +28,12 @@ function analyzeOldPuzzles() {
     avgHigh: 0,
   }));
 
-  const firstDay = dayjs(new Date('4/10/2023'));
-  const lastDay = dayjs(new Date('8/7/2023'));
-  const days = lastDay.diff(firstDay, 'days');
+  const days = 120;
 
   for (let i = 0; i < days; i++) {
-    const day = firstDay.add(i, 'day');
-    const puzzle = getConvertedOldPuzzle(day.format('M/D/YYYY'));
-    const solutions = puzzle.map((p) => PuzzleService.solveWithStats(p));
-    solved.push(solutions);
+    const puzzle = PuzzleService.generatePuzzleGroup(puzzleGroup);
 
-    console.log('solved', `${i + 1} / ${days}`);
+    console.log('solved', `${i + 1} / 120`);
 
     for (let j = 0; j < 5; j++) {
       puzzleAnalysis[j].avgTarget =
@@ -84,7 +46,7 @@ function analyzeOldPuzzles() {
         puzzleAnalysis[j].minTarget,
         puzzle[j].target
       );
-      const solvedIn = solutions[j].solutions.findIndex((s) => s > 0) + 1;
+      const solvedIn = puzzle[j].solutions.findIndex((s) => s > 0) + 1;
       puzzleAnalysis[j].avgSteps =
         (puzzleAnalysis[j].avgSteps * i + solvedIn) / (i + 1);
       puzzleAnalysis[j].minSteps = Math.min(
@@ -96,18 +58,12 @@ function analyzeOldPuzzles() {
         solvedIn
       );
 
-      const low = solutions[j].numbers.reduce(
-        (c, n) => (n <= 11 ? c + 1 : c),
-        0
-      );
+      const low = puzzle[j].numbers.reduce((c, n) => (n <= 11 ? c + 1 : c), 0);
       puzzleAnalysis[j].avgLow = (puzzleAnalysis[j].avgLow * i + low) / (i + 1);
       puzzleAnalysis[j].minLow = Math.min(puzzleAnalysis[j].minLow, low);
       puzzleAnalysis[j].maxLow = Math.max(puzzleAnalysis[j].maxLow, low);
 
-      const high = solutions[j].numbers.reduce(
-        (c, n) => (n > 11 ? c + 1 : c),
-        0
-      );
+      const high = puzzle[j].numbers.reduce((c, n) => (n > 11 ? c + 1 : c), 0);
       puzzleAnalysis[j].avgHigh =
         (puzzleAnalysis[j].avgHigh * i + high) / (i + 1);
       puzzleAnalysis[j].minHigh = Math.min(puzzleAnalysis[j].minHigh, high);
@@ -131,9 +87,9 @@ function analyzeOldPuzzles() {
   }
 
   fs.writeFileSync(
-    path.join(__dirname, 'old-puzzles.json'),
+    path.join(__dirname, 'new-puzzles.json'),
     JSON.stringify(puzzleAnalysis, null, 2)
   );
 }
 
-analyzeOldPuzzles();
+analyzeNewPuzzles();

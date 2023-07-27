@@ -1,6 +1,6 @@
 {
   "name": "stigid",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -11,6 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node dist/index.js",
     "clean": "rm -rf dist",
+    "analyzeNew": "ts-node -r tsconfig-paths/register ./src/data/analyzeNew.ts --dir .",
+    "oldPuzzle": "ts-node -r tsconfig-paths/register ./src/data/oldPuzzles.ts --dir .",
     "build-api": "tsc",
     "build-ui": "cd ui && pnpm run build",
     "install:ui": "cd ui && pnpm i",

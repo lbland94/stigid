@@ -82,12 +82,11 @@ export class PuzzleController {
     res: Response
   ) {
     try {
-      const date = req.query.date
-        ? dayjs(req.query.date, 'YYYY-MM-DD')
-        : undefined;
+      // const date = req.query.date
+      //   ? dayjs(req.query.date, 'YYYY-MM-DD')
+      //   : undefined;
       const puzzles = PuzzleService.generatePuzzleGroup(puzzleGroup);
-      const newPuzzle = await PuzzleService.savePuzzle(puzzles, date);
-      res.status(200).json(newPuzzle);
+      res.status(200).json({ date: 'random', number: -1, puzzles });
     } catch (e) {
       res.status(500).json(e);
     }
