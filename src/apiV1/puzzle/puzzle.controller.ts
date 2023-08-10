@@ -145,7 +145,7 @@ export class PuzzleController {
         ? dayjs(req.query.date, 'YYYY-MM-DD')
         : undefined;
       const puzzles = PuzzleService.generatePuzzleGroup(puzzleGroup);
-      const newPuzzle = await PuzzleService.upsertPuzzle(puzzles, date);
+      const newPuzzle = await PuzzleService.savePuzzle(puzzles, date);
       res.status(200).json(newPuzzle);
     } catch (e) {
       res.status(500).json(e);

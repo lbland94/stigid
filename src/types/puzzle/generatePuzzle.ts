@@ -7,5 +7,5 @@ export interface IGeneratePuzzleQuery extends qs.ParsedQs {
 export const GeneratePuzzleQuery = Joi.object<IGeneratePuzzleQuery>({
   date: Joi.string()
     .regex(/\d{4}-\d{2}-\d{2}/)
-    .optional(),
+    .required(),
 });

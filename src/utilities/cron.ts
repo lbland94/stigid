@@ -5,26 +5,7 @@ import ms from 'ms';
 
 Bree.extend(tsWorker);
 
-const sched = later.parse
-  .recur()
-  .on('00:00:00')
-  .time()
-  .after(8)
-  .month()
-  .after(8)
-  .dayOfMonth()
-  .before(9)
-  .month()
-  .and()
-  .on('00:00:00')
-  .time()
-  .after(9)
-  .month()
-  .and()
-  .on('00:00:00')
-  .time()
-  .after(2024)
-  .year();
+const sched = later.parse.recur().on('00:00:00').time();
 
 const cron = new Bree({
   acceptedExtensions: ['js', 'ts'],
@@ -33,7 +14,7 @@ const cron = new Bree({
   jobs: [
     {
       name: 'generate-puzzle',
-      interval: sched as any,
+      interval: { schedules: sched.schedules } as any,
       closeWorkerAfterMs: ms('5m'),
     },
   ],
