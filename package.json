@@ -1,6 +1,6 @@
 {
   "name": "stigid",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -17,7 +17,7 @@
     "build-ui": "cd ui && pnpm run build",
     "install:ui": "cd ui && pnpm i",
     "build": "pnpm run clean && pnpm run build-ui && pnpm run build-api:es",
-    "build-api:es": "esbuild src/index.ts --outfile=dist/index.js --bundle --loader:.ts=ts --platform=node --external:saslprep && esbuild `find ./jobs -name '*.ts'` --outdir=dist/jobs",
+    "build-api:es": "esbuild src/index.ts --outfile=dist/index.js --bundle --loader:.ts=ts --platform=node --external:saslprep && esbuild `find ./jobs -name '*.ts'` --outdir=dist/jobs --bundle --loader:.ts=ts --platform=node",
     "docker:up": "TAG=latest docker compose --env-file=.env -f ./docker/docker-compose.yml up -d",
     "docker:down": "TAG=latest docker compose --env-file=.env -f ./docker/docker-compose.yml down",
     "docker:build": "TAG=latest docker compose --env-file=.env -f ./docker/docker-compose.yml build",
