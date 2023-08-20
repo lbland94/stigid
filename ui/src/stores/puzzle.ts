@@ -24,10 +24,10 @@ export const usePuzzleStore = defineStore('puzzle', {
     async fetchPuzzle() {
       try {
         const date = dayjs().format('YYYY-MM-DD');
-        if (
-          !(this.puzzle as StigidDaily)?.date ||
-          dayjs((this.puzzle as StigidDaily)?.date).format('YYYY-MM-DD') !== date
-        ) {
+        const puzzleDate = (this.puzzle as StigidDaily)?.date
+          ? dayjs.utc((this.puzzle as StigidDaily)?.date)
+          : undefined;
+        if (puzzleDate?.format('YYYY-MM-DD') !== date) {
           this.puzzle = await api.puzzle.getPuzzle(date);
           this.solutions = [];
         }

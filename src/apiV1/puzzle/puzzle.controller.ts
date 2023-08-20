@@ -21,8 +21,8 @@ export class PuzzleController {
     try {
       const puzzle = await PuzzleService.getPuzzle(
         req.query.date
-          ? dayjs(req.query.date as string | undefined, 'YYYY-MM-DD')
-          : dayjs()
+          ? dayjs.utc(req.query.date as string | undefined, 'YYYY-MM-DD')
+          : dayjs.utc()
       );
       res.status(200).json(puzzle.toJSON());
     } catch (e) {
