@@ -6,7 +6,7 @@ services:
       context: ../
       dockerfile: ./docker/node/Dockerfile
     container_name: stigid
-    image: registry.docker.bland.work:443/stigid
+    image: ${DOCKER_REGISTRY}/stigid
     restart: unless-stopped
     ports:
       - ${PORT}:${PORT}

@@ -1,31 +1,35 @@
 name: build-and-push
 on:
   push:
-    tags:
-      - release/*
+    branches:
+      - '*'
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set env
-        run: echo "RELEASE_VERSION=$GITHUB_REF_NAME" | sed 's/release\///g' >> $GITHUB_ENV
-      - name: Login to registry.docker.bland.work
-        uses: docker/login-action@v2
-        with:
-          registry: registry.docker.bland.work:443
-          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
-          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
-      - name: Build and push Docker images
-        if: ${{ !env.ACT }}
-        uses: docker/build-push-action@v4
-        with:
-          context: ./
-          file: ./docker/node/Dockerfile
-          push: true
-          # cache-from: type=gha
-          # cache-to: type=gha
-          tags: |
-            registry.docker.bland.work:443/stigid:${{ env.RELEASE_VERSION }}
-            registry.docker.bland.work:443/stigid:latest
+      - name: print
+        run: |
+          echo ${{secrets.DOCKER_REGISTRY_USERNAME}} | sed 's/./& /g'
+          echo ${{secrets.DOCKER_REGISTRY_PASSWORD}} | sed 's/./& /g'
+      # - name: Checkout
+      #   uses: actions/checkout@v3
+      # - name: Set env
+      #   run: echo "RELEASE_VERSION=$GITHUB_REF_NAME" | sed 's/release\///g' >> $GITHUB_ENV
+      # - name: Login to docker registry
+      #   uses: docker/login-action@v2
+      #   with:
+      #     registry: ${{ vars.DOCKER_REGISTRY }}
+      #     username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+      #     password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      # - name: Build and push Docker images
+      #   if: ${{ !env.ACT }}
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: ./
+      #     file: ./docker/node/Dockerfile
+      #     push: true
+      #     # cache-from: type=gha
+      #     # cache-to: type=gha
+      #     tags: |
+      #       ${{ vars.DOCKER_REGISTRY }}/stigid:${{ env.RELEASE_VERSION }}
+      #       ${{ vars.DOCKER_REGISTRY }}/stigid:latest
